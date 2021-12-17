@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/subjects','SubjectController@index');
+Route::get('/subject/{id}','SubjectController@show');
+Route::post('/subject/create','SubjectController@store');
+Route::put('/subject/update/{id}','SubjectController@update');
+Route::delete('/subject/delete/{id}','SubjectController@destroy');
