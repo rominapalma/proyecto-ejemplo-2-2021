@@ -28,3 +28,9 @@ Route::get('/subject/{id}','SubjectController@show');
 Route::post('/subject/create','SubjectController@store');
 Route::put('/subject/update/{id}','SubjectController@update');
 Route::delete('/subject/delete/{id}','SubjectController@destroy');
+
+Route::get('/courses','CourseController@index');
+Route::get('/course/{id}','CourseController@show');
+Route::post('/course/create','CourseController@store');
+Route::put('/course/update/{id}','CourseController@update');
+Route::delete('/course/delete/{id}','CourseController@destroy');
