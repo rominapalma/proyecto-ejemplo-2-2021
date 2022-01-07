@@ -17,30 +17,44 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h4 class="mb-3">Ingresa un nuevo curso</h4>
-                    <form action="{{action('CourseController@store')}}" method='POST'>
+                    <h4 class="mb-3">Modificar el curso</h4>
+                    <form action="{{action('CourseController@update', $course->id)}}" method='POST'>
+                        @method('PUT')
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre del curso</label>
-                            <input type="text" class="form-control" id="name" name="name" value="">
+                            <input type="text" class="form-control" id="name" name="name" value="" placeholder="{{$course->name}}">
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">URL de la imagen del curso</label>
-                            <input type="text" class="form-control" id="image" name="image" value="">
+                            <input type="text" class="form-control" id="image" name="image" value="" placeholder="{{$course->image}}">
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Descripción</label>
-                            <input type="text" class="form-control" id="description" name="description" value="">
+                            <input type="text" class="form-control" id="description" name="description" value="" placeholder="{{$course->description}}">
                         </div>
                         <div class="mb-3">
                         <label for="description" class="form-label">Identificador de asignatura</label>
                         <select class="form-select mb-4" aria-label="Seleccione una asignatura asociada:" name="id_subject" id="id_subject">
                             @foreach ($subjects as $subject)
+                                @if($subject->id == $course->id_subject)
+                                <option value="{{$subject->id}}" selected>{{$subject->name}}</option>
+                                @else
                                 <option value="{{$subject->id}}">{{$subject->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                        <button type="submit" class="btn btn-primary mb-5">Enviar</button>
+                        </div>
                     </form>
+                    <form action="{{action('CourseController@destroy', $course->id)}}" method='POST'>
+                        @method('DELETE')
+                        <input type="text"class="form-control" id="id" name="id" value="{{$course->id}}" hidden>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-danger">Borrar curso</button>
+                        </div>
+                    </form> 
                 </div>
             </div>
         </div>

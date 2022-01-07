@@ -19,7 +19,7 @@ class CreateCoursesTable extends Migration
             $table->text('image');
             $table->text('description');       
             $table->unsignedBigInteger('id_subject')->nullable();
-            $table->foreign('id_subject')->references('id')->on('subjects');
+            $table->foreign('id_subject')->references('id')->on('subjects')->onDelete('cascade');
 
             $table->timestamps();
         });

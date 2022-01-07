@@ -19,7 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('name',100);
 
             $table->unsignedBigInteger('id_course')->nullable();
-            $table->foreign('id_course')->references('id')->on('courses');
+            $table->foreign('id_course')->references('id')->on('courses')->onDelete('cascade');
 
             $table->timestamps();
         });

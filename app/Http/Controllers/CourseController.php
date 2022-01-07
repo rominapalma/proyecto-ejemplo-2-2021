@@ -21,17 +21,14 @@ class CourseController extends Controller
             //No hay cursos
             return response()->json([], 204);
         }
-        return response($courses, 200);
+        //return response($courses, 200);
+        return view('home',compact('courses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function vistaCrearCurso()
     {
-        //
+        $subjects = Subject::all();
+        return view('ingresarcurso',compact('subjects'));
     }
 
     /**
@@ -74,11 +71,12 @@ class CourseController extends Controller
         $newCourse->image = $request->image;
         $newCourse->id_subject = $request->id_subject;
         $newCourse->save();
-
-        return response()->json([
+        $courses = Course::all();
+        /* return response()->json([
             'msg' => 'New course has been created',
             'id' => $newCourse->id,
-        ], 201);
+        ], 201); */
+        return view('home',compact('courses'));
     }
 
     /**
@@ -93,7 +91,9 @@ class CourseController extends Controller
         if(empty($course)){
             return response()->json([], 204);
         }
-        return response($course, 200);
+        $subjects = Subject::all();
+        //return response($course, 200);
+        return view('editarcurso',compact('course','subjects'));
     }
 
     /**
@@ -119,10 +119,10 @@ class CourseController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'min:2|max:255',
-                'description' => 'min:2|max:255',
-                'image' => 'min:2|max:255',
-                'id_subject' => 'integer',
+                'name' => 'nullable|min:2|max:255',
+                'description' => 'nullable|min:2|max:255',
+                'image' => 'nullable|min:2|max:255',
+                'id_subject' => 'nullable|integer',
             ],
             [
                 'name.min' => 'Debe ser de largo mínimo :min',
@@ -166,10 +166,12 @@ class CourseController extends Controller
             $course->id_subject = $request->id_subject;
         }
         $course->save();
-        return response()->json([
+        /* return response()->json([
             'msg' => 'Course has been edited',
             'id' => $course->id,
-        ], 200);
+        ], 200); */
+        $courses = Course::all();
+        return view('home',compact('courses'));
     }
 
     /**
@@ -185,9 +187,11 @@ class CourseController extends Controller
             return response()->json([],204);
         }
         $course->delete();
-        return response()->json([
+        /* return response()->json([
             'msg' => 'course has been deleted',
             'id' => $course->id,
-        ], 200);
+        ], 200); */
+        $courses = Course::all();
+        return view('home',compact('courses'));
     }
 }
